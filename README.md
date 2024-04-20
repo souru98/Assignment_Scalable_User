@@ -18,16 +18,48 @@ This repository contains the code for the User Service, a part of a microservice
 
 ### Prerequisites
 - Docker
+- MiniKube
 - Go
+- SqlLite
 
 ### Steps to Configure and Use
 
 1. **Clone the repository**
+   ```
    git clone https://github.com/souru98/Assignment_Scalable_User.git
 2. **Build the Docker image**
+   ```
    docker build -t lms-userservice .
 3. **Run the Docker container**
-  docker run -e PORT=8081 -p 8081:8081 lms-userservice
+   ```
+   docker run -e PORT=8081 -p 8081:8081 lms-userservice
+
+## Deploying to MiniKube
+
+Follow these steps to deploy your application to MiniKube:
+
+1. **Navigate to Project Directory**: 
+   Open Windows PowerShell and navigate to your project directory using the `cd` command.
+
+2. **Start MiniKube**: 
+   Start your MiniKube cluster with the command `minikube start`.
+
+3. **Set Docker Environment**: 
+   Set up the Docker environment inside MiniKube. Run the following command in PowerShell:
+   ```powershell
+   minikube -p minikube docker-env --shell powershell | Invoke-Expression
+   
+4. **Build Docker Image**
+   ```powershell
+   docker build -t lms-userservice .
+   
+5. **Create Kubernetes Deployment**
+   ```powershell
+   kubectl run lms-us-mkk22 --image=lms-userservice --image-pull-policy=Never --port=8080
+   
+6. **Port Forwarding**
+   ```powershell
+   kubectl port-forward lms-us-mkk22 8080
 
 
 ## API Endpoints
